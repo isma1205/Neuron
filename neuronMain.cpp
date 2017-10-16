@@ -27,7 +27,7 @@ int main()
 	}
 	
 	neuron n1(10.0); 
-	unsigned int nit = ((b-a)/n1.getH()); // number of iteration for the simulation
+	unsigned int nit = (unsigned int) ((b-a)/n1.getH()); // number of iteration for the simulation
 	std::cout<<"N1 MPOT !!!! " << n1.getMPot() << std::endl;
 	
 

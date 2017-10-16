@@ -2,26 +2,28 @@
 #define NEURON_H
 #include <vector>
 #include <cmath>
+#include <iostream>
 
 class neuron
 {
 	private: 
 	//atributs:
-	double mPot_; //membrane potential
+	double mPot_;							//membrane potential
 	double Iext_;
-	unsigned int spikesNb_;//number of spikes 
-	std::vector<double> tSpike_; //
-	double clock_; // neuron time
-	double tRef_; //refractory time
-	const double tau_ = (20.0); //20 ms
+	unsigned int spikesNb_;					//number of spikes 
+	std::vector<double> tSpike_; 			// vector that keep in memory when spikes occure
+	int clock_; 							// neuron time in step
+	double tRef_;							//refractory time
+	const double tau_ = (20.0); 			//20 ms
 	const double c_= (1.0);
-	double h_ = (0.1); // choice of the step: 1 ms
+	double h_ = (0.1); 						// choice of the step: 1 ms
 	double R_=(tau_/c_);
 	double expn_=(exp(-h_/tau_));
 	double cste_ =(R_*(1-expn_));
-	const double treshold_ =(20.0); //initialization of the threshold
-	
-	int refSteps_ = (0); //number of iteration for the refractory state
+	const double treshold_ =(20.0); 		//initialization of the threshold
+	int refSteps_ = (0);					//number of iteration for the refractory state
+	std::vector<int> buffer_ ; 				//ring buffer that allows 10 slots of memory for spikes with delay
+	const double J_ = 0.1; 					// potential transmitted [mv]
 
 	
 	public:
@@ -38,6 +40,7 @@ class neuron
 	bool update(unsigned int i);
 	void setTRef(double dt);
 	double getTRef () const;
+	void setBuffer(int D);
 	
 	
 };
