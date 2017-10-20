@@ -28,7 +28,7 @@ class neuron
 	
 	public:
 	//constructor
-	neuron(double mPot, double Iext_ = 10.0 ,unsigned int spikesNb=0, int clock =0, double tRef_ = 2.0);
+	neuron(double mPot=0.0, double Iext_ = 10.0 ,unsigned int spikesNb=0, int clock =0, double tRef_ = 2.0);
 	
 	//methods
 	double getMPot();
@@ -36,7 +36,7 @@ class neuron
 	std::vector<double> getTSpike();
 	void setMPot(double mPot);
 	void setSpikesNb(unsigned int spikesNb);
-	double getH () const;
+	double getH() const;
 	bool update(unsigned int i);
 	void setTRef(double dt);
 	double getTRef () const;

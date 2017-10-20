@@ -1,13 +1,32 @@
 #include <iostream>
 #include "cortex.hpp"
+#include <vector>
 
 
+//constructor:
+cortex::cortex()
+{}
 
-/*// constructor:
-cortex::cortex(size_t neuronsNbr, double J)
-: neurons_(neuronsNbr), J_(J)
-{}*/
+// destructor
+cortex::~cortex()
+{
+	for (size_t i = 0; i < neurons_.size(); ++i)
+	{
+		delete neurons_[i];
+		neurons_[i] = NULL;
+	}
+	
+}
 
+//getters:
+
+double cortex::getH() const
+	{
+		return h_;
+	}
+	
+	
+// methods
 void cortex::receiveSpike(neuron n) // transmit the J to the membrane
 {
 	n.setBuffer(stepDelay_);
@@ -23,9 +42,12 @@ void cortex::updates(unsigned int nit)
 			{
 				receiveSpike(*neurons_[j+1]); // transmit the J to the neurone j+1 in its buffer
 			}
-			
 		}
-		
 	}
-	
 }
+
+	void cortex::initiateNeurons(neuron* pointer)
+	{
+		neurons_.push_back(pointer);
+	}
+

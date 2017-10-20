@@ -19,10 +19,16 @@ class cortex: public neuron
 	
 	public:
 	//constructor:
-	cortex(size_t neuronsNbr, double J);
+	cortex(); //initialise avec un nombre de neuron vide
 	// methods
 	void receiveSpike(neuron n);
 	void updates(unsigned int nit);
+	void initiateNeurons(neuron* pointer);
+
+	//getters
+	double getH() const;
+	//destructeur
+	~cortex();
 
 	
 	
