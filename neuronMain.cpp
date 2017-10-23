@@ -1,5 +1,4 @@
 #include <iostream>
-#include <ctime>
 #include "neuron.hpp"
 #include <fstream>
 #include "cortex.hpp"
@@ -34,19 +33,24 @@ int main()
 		{
 			std::cout<< "how many neurons your cortex has"<<std::endl;
 			std::cin>>nbr;
-				if (nbr<2) {throw 2;}
+			std::cout<<"Start simulation for " << nbr << " neurons"<< std::endl;
+				if (nbr<1) {throw 2;}
 		}
 		catch (int y)
 		{
 			std::cout<<"ERROR there isn't enough neurons"<< std::endl;
 		}
 	
-	cortex c;															// create a cortex named c
+	cortex c;				
+												// create a cortex named c
 
 																		// initiate the vector of pointer
 	for (int i = 0; i < nbr; i++)
 	{
-		c.initiateNeurons(new neuron(10,0));
+		c.initiateNeurons(new neuron(0,1.00));
+		//debugg
+		std::cout<<"taille du vector: " << c.getSize()<<std::endl;
+	
 	}
 	//update all neurons:
 

@@ -27,6 +27,7 @@ class cortex: public neuron
 
 	//getters
 	double getH() const;
+	size_t getSize() const;
 	//destructeur
 	~cortex();
 

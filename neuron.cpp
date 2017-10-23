@@ -1,3 +1,5 @@
+
+
 #include <iostream>
 #include "neuron.hpp"
 #include <cmath>
@@ -65,22 +67,22 @@ neuron::neuron(double mPot, double Iext, unsigned int spikesNb, int clock, doubl
 bool neuron::update(unsigned int i)
 {
 	bool anySpike (false); // return if there's a spike, false initially
-	
+		
 	if(mPot_ >= treshold_) // if there is a spike ->
 	{
 		++ spikesNb_; //increase number of spikes
 		tSpike_.push_back(i*h_); //add the time of the new spike
 		
-		std::cout<<"! Spike detected ! "<<std::endl;
-		std:: cout << i*h_ << std:: endl;
+		std::cout<<"! Spike detected ! "<< "At time: "<< i*h_ << std:: endl;
 		refSteps_= (2/h_); // 2ms 
 		mPot_= 0.0;
 		anySpike = true;
+	
 	}
 	
 	if (refSteps_ <=0)  				
 	{
-		double J = (buffer_[i%buffer_.size()]*J_); // go in the buffer to the place i%buffersize and take the value in it to add it to the membrane potential on next step
+		double J = (buffer_[i%buffer_.size()]*J_); // go in the buffer to the place i%buffersize and take the value in it to add it to the membrane potential on next step if empty J=0
 		mPot_ = (expn_*mPot_ + Iext_*cste_ + J);
 		
 		//std::cout<<"no spike"<<std::endl;
@@ -90,6 +92,7 @@ bool neuron::update(unsigned int i)
 	--refSteps_; // the refractory steps decrease 
 	buffer_[i%buffer_.size()] = 0;
 	return anySpike;
+	
 
 }
 
