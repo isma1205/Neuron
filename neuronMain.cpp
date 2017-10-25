@@ -6,7 +6,7 @@
 
 int main()
 {
-
+	
 //create the interval of simultation
 	double a, b;
 
@@ -26,7 +26,9 @@ int main()
 		{
 			std::cout<<"ERROR interval not correct"<< std::endl;
 		}
-// create the cortex
+		
+// Cortex 
+
 	int nbr; 															// the number of neurons
 	
 		try
@@ -47,41 +49,22 @@ int main()
 																		// initiate the vector of pointer
 	for (int i = 0; i < nbr; i++)
 	{
-		c.initiateNeurons(new neuron(0,1.00));
-		//debugg
-		std::cout<<"taille du vector: " << c.getSize()<<std::endl;
-	
+		c.initiateNeurons(new neuron(0,1.01));
 	}
 	//update all neurons:
 
 	unsigned int nit = (unsigned int) ((b-a)/c.getH()); // number of iteration for the simulation
-	//std::cout<<"N1 MPOT !!!! " << n1.getMPot() << std::endl;
-	
-	c.updates(nit);
-
-	/*std::cout<<"enter your input current "<<std::endl;
-	std::cin>>Iext;;*/
-	
-	
 
 	
-//	std::ofstream file1("membrane potential.txt");
-
-/*
-	for (unsigned int i = 0; i < nit; ++i)
-	{
-		n1.update(i);
-		file1 << n1.getMPot()<<"\n"; // store the membrane potential in a file
+		/*std::ofstream fichier;
+		fichier.open ("membrane potential.txt");*/
 	
-		
-		//std::cout<<"time[s]: "<< a <<std::endl;
-		std::cout<<"membrane potential[mv] "<<n1.getMPot()<<std::endl;
-		
-		
-	}
-
-	file1.close();*/
+	c.updates(nit/*, fichier*/);
 	
+		//fichier.close();
+	
+
+
 	
 	return 0;
 }

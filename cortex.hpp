@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "neuron.hpp"
+#include <fstream>
 
 class cortex: public neuron
 {
@@ -22,7 +23,7 @@ class cortex: public neuron
 	cortex(); //initialise avec un nombre de neuron vide
 	// methods
 	void receiveSpike(neuron n);
-	void updates(unsigned int nit);
+	void updates(unsigned int nit/*, std::ofstream fichier*/);
 	void initiateNeurons(neuron* pointer);
 
 	//getters

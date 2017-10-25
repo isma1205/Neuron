@@ -36,6 +36,10 @@ neuron::neuron(double mPot, double Iext, unsigned int spikesNb, int clock, doubl
 	{
 		return h_;
 	}
+	std::vector<double> neuron::getTspike() const
+	{
+		return tSpike_;
+	}
 
 
 // setters
@@ -55,12 +59,10 @@ neuron::neuron(double mPot, double Iext, unsigned int spikesNb, int clock, doubl
 	{
 		buffer_[(clock_+delayStep)% buffer_.size()] +=1;
 	}
-	
-	/*void setTspike()
-	 {
-		
-	 }
-	 */
+	void neuron::setDisplaySpikes(bool b)
+	{
+		displaySpikes_ = b;
+	}
 
 
 //update
@@ -73,7 +75,12 @@ bool neuron::update(unsigned int i)
 		++ spikesNb_; //increase number of spikes
 		tSpike_.push_back(i*h_); //add the time of the new spike
 		
-		std::cout<<"! Spike detected ! "<< "At time: "<< i*h_ << std:: endl;
+		if (displaySpikes_) //if true allow to diplay spikes in terminal
+		{
+			std::cout<<"! Spike detected ! "<< "At time: "<< i*h_ << std:: endl;
+		}
+		
+		
 		refSteps_= (2/h_); // 2ms 
 		mPot_= 0.0;
 		anySpike = true;

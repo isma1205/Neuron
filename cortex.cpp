@@ -4,6 +4,7 @@
 #include <vector>
 
 
+
 //constructor:
 cortex::cortex()
 {}
@@ -39,17 +40,19 @@ void cortex::receiveSpike(neuron n) // transmit the J to the membrane
 }
 
 
-void cortex::updates(unsigned int nit)
+void cortex::updates(unsigned int nit /*, std::ofstream fichier*/)
 {
 	for (unsigned int i = 0; i < nit ; ++i)
 	{
 		for (unsigned int j = 0; j < neurons_.size() ; ++j)
 		{	
+			
 			bool isThereSpike (neurons_[j]->update(i));
 			if ((isThereSpike) and (j+1)< neurons_.size())
 			{
 				receiveSpike(*neurons_[j+1]); // transmit the J to the neurone j+1 in its buffer
 			}
+			//fichier << neurons_[j]->getMPot()<<"\n"; // store the membrane potential in a file
 		}
 	}
 }

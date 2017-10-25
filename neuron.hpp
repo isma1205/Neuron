@@ -24,6 +24,7 @@ class neuron
 	int refSteps_ = (0);					//number of iteration for the refractory state
 	std::vector<int> buffer_ ; 				//ring buffer that allows 10 slots of memory for spikes with delay
 	const double J_ = 0.1; 					// potential transmitted [mv]
+	bool displaySpikes_ = true; // if true allow spikes time to appear in the terminal
 
 	
 	public:
@@ -41,7 +42,9 @@ class neuron
 	void setTRef(double dt);
 	double getTRef () const;
 	void setBuffer(int D);
-	
+	std::vector<double> getTspike() const;
+	void setDisplaySpikes(bool b);
+
 	
 };
 
