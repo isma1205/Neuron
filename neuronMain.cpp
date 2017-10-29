@@ -42,19 +42,23 @@ int main()
 		{
 			std::cout<<"ERROR there isn't enough neurons"<< std::endl;
 		}
-	
+		
+		// create a cortex named c:
 	cortex c;				
-												// create a cortex named c
-
-																		// initiate the vector of pointer
+											 
+		// initiate the vector of pointer:
 	for (int i = 0; i < nbr; i++)
 	{
 		c.initiateNeurons(new neuron(0,1.01));
 	}
+	//initilize the random connexions between neurons;
+	c.createConnexions(nbr);
 	//update all neurons:
 
 	unsigned int nit = (unsigned int) ((b-a)/c.getH()); // number of iteration for the simulation
 
+	
+	
 	
 		/*std::ofstream fichier;
 		fichier.open ("membrane potential.txt");*/

@@ -6,7 +6,7 @@
 
 
 //constructeur
-neuron::neuron(double mPot, double Iext, unsigned int spikesNb, int clock, double tRef)
+neuron::neuron(double mPot, double Iext, bool type, unsigned int spikesNb, int clock, double tRef)
 : mPot_(mPot),Iext_(Iext), spikesNb_(spikesNb),  clock_(clock), tRef_(0.0), buffer_(10,0)
 {}
 

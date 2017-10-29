@@ -10,6 +10,7 @@ class neuron
 	//atributs:
 	double mPot_;							//membrane potential
 	double Iext_;
+	bool type_;								//true if excitatory, false if inhibitory
 	unsigned int spikesNb_;					//number of spikes 
 	std::vector<double> tSpike_; 			// vector that keep in memory when spikes occure
 	int clock_; 							// neuron time in step
@@ -29,7 +30,7 @@ class neuron
 	
 	public:
 	//constructor
-	neuron(double mPot=0.0, double Iext_ = 1.01 ,unsigned int spikesNb=0, int clock =0, double tRef_ = 2.0);
+	neuron(double mPot=0.0, double Iext = 1.01, bool type = true,unsigned int spikesNb=0, int clock =0, double tRef_ = 2.0);
 	
 	//methods
 	double getMPot();
