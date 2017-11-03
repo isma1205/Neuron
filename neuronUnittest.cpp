@@ -30,7 +30,7 @@
 	}
 
 	// test of the spikes times if I = 1.01
-	TEST(neuronAlone, spikesTime ) // sur un intervalle de 0 à 400ms le neurone devrait avoir des pics à 92.4, 186.6, 281.2, 375.6 ms
+	TEST(neuron_Alone, spikesTime ) // sur un intervalle de 0 à 400ms le neurone devrait avoir des pics à 92.4, 186.6, 281.2, 375.6 ms
 	{
 		neuron n(0,1.01);
 		n.setDisplaySpikes(false); // arrête l'affiche des pics du neurone
@@ -51,6 +51,14 @@
 			ASSERT_FLOAT_EQ(expectedTime[i], spikesTime[i]); 
 		}
 		EXPECT_EQ(4, n.getSpikesNb()); // verify that there are only 4 spikes, verify if the spikes are correctly counted
+	}
 		
+	//test of the connections between neurons
+/*	TEST(connections, connexions_Not_Empty )
+	{
+		cortex c;
+		c.createConnexions();
+		EXPECT_EQ(, )
+	}
 
-}
+}*/

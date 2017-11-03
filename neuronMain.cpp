@@ -9,63 +9,64 @@ int main()
 	
 //create the interval of simultation
 	double a, b;
-
-	
-		try
+do
+{
+	try
 		{
+			
 			std::cout<<"entrez un intervalle [ms]"<<std::endl;
 			std::cin>>a>>b;
-			
 			if (b<=a or b<0 or a <0)
 			{
 				throw 1;
 			}
-		
 		}
 		catch(int x)
 		{
 			std::cout<<"ERROR interval not correct"<< std::endl;
 		}
-		
-// Cortex 
+} while (b<=a or b<0 or a <0);
 
-	int nbr; 															// the number of neurons
-	
-		try
-		{
-			std::cout<< "how many neurons your cortex has"<<std::endl;
-			std::cin>>nbr;
-			std::cout<<"Start simulation for " << nbr << " neurons"<< std::endl;
-				if (nbr<1) {throw 2;}
-		}
-		catch (int y)
-		{
-			std::cout<<"ERROR there isn't enough neurons"<< std::endl;
-		}
 		
-		// create a cortex named c:
+		
+
+// the number of neurons:
+		
+	unsigned int ne = 10000;
+	unsigned int ni= 2500;	
+	unsigned int nbr = (ne+ni); 													
+	
+		
+// create a cortex named c:
 	cortex c;				
 											 
-		// initiate the vector of pointer:
-	for (int i = 0; i < nbr; i++)
+// initiate the vector of pointer:
+std::cout<<"initialization of neurons in the cortex..."<<std::endl;
+
+	for (unsigned int i = 0; i < ni; i++)
 	{
-		c.initiateNeurons(new neuron(0,1.01));
+		c.initiateNeurons(new neuron(0.0, 1.01 , false));
 	}
+	for (unsigned int i = 0; i < ne; i++)
+	{
+		c.initiateNeurons(new neuron(0.0, 1.01 , true));
+	}
+
+	
+	
+	
 	//initilize the random connexions between neurons;
-	c.createConnexions(nbr);
+	std::cout<<"making connections..."<<std::endl;
+	c.createConnexions(ne, ni);
 	//update all neurons:
 
 	unsigned int nit = (unsigned int) ((b-a)/c.getH()); // number of iteration for the simulation
+	
+	c.updates(nit);
+	
+	// store  in a file
+	c.storeInFile();
 
-	
-	
-	
-		/*std::ofstream fichier;
-		fichier.open ("membrane potential.txt");*/
-	
-	c.updates(nit/*, fichier*/);
-	
-		//fichier.close();
 	
 
 

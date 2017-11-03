@@ -3,37 +3,95 @@
 
 #include <vector>
 #include "neuron.hpp"
-#include <fstream>
 
 class cortex: public neuron
 {
 	private:
 	
-	std::vector<neuron*> neurons_;
-	size_t neuronsNbr_;
-	const double D_ = 0.9; // delay in ms
-	const double h_= 0.1; // SEE LATER
+	std::vector<neuron*> neurons_; 					///The vector containing pointer on neurons
+	size_t neuronsNbr_; 							///< The number of neurons in the cortex
+	const double D_ = 1.5; 							/// delay in [ms]
+	const double h_= 0.1; 							/// Step of the simulation in [ms]
 	const int stepDelay_ = (D_/h_);
-	std::vector<std::vector<bool>> connexions_; // boolean vector for connexions between neurons
+	std::vector<std::vector<double> > connexions_; // boolean vector for connexions between neurons
 	
-	
-
 	
 	public:
-	//constructor:
-	cortex(); //initialise avec un nombre de neuron vide
-	// methods
-	void receiveSpike(neuron n);
-	void updates(unsigned int nit/*, std::ofstream fichier*/);
+//constructor:
+	cortex();										 ///the Constructor for cortex initialized with an empty vector neurons_
+	
+// methods:
+	/**
+	 @brief : call the buffer's setter of the neuron n to add on its buffer the strength of the received current
+	 @param n: a neuron
+	 @param weight: the random strength of the connection
+	 */
+	void receiveSpike(neuron n, double weight);
+	
+	/**
+	 @brief : call update function of all neurons and call the function receiveSpike if the neurons j and k are connected
+	 @param nit : the number of iteration in the all simulation
+	 */
+	void updates(unsigned int nit);
+	
+	/**
+	 @brief : place the pointer on a neuron in the vector neurons_
+	 @param pointer : the pointer on a neuron
+	 */
 	void initiateNeurons(neuron* pointer);
+	
+		/**
+	 @brief : create a random double number between a & b
+	 @param a: borne a of the interval
+	 @param b: borne b of the interval
+	 @return : the random number
+	 */
 	double randm(double a, double b); //return a random double number beetween a & b
-	void createConnexions(unsigned int nbr);
+	
+	
+		/**
+	 @brief : create connections between all neurons 10% of the connections are with excitatory neurons and the same for inhibitory neurons
+	 @param ne : number of excitatory neurons
+	 @param ni: number of inhibitory neurons 
+	 */
+	void createConnexions(unsigned int ne, unsigned int ni);
 
 	//getters
+	
+	/**
+	 @brief : return the step h of the simulation
+	 @return : the step h of the simulation
+	 */
 	double getH() const;
+	
+	/**
+	 @brief : return the size of neurons_
+	 @return : neurons_.size()
+	 */
 	size_t getSize() const;
+	
+	/**
+	 @param int i:index of the neuron
+	 @brief : return a pointer on a neuron (the *neurons_[i])
+	 @return : the step h of the simulation
+	 */ 
+	neuron* getNeuronsi(int i); 
+	
+	/**
+	 @brief : return the vector of connexions_
+	 @return : connexions_
+	 */ 
+	std::vector<std::vector<double> > getConnexions();
+	
+	
+	/**
+	 @brief : Store in a file (named membrane potentiel) the membrane potential of all neurons.
+	 */ 
+	void storeInFile();
+	
 	//destructeur
-	~cortex();
+	~cortex(); 															///destructor
+
 
 	
 	
