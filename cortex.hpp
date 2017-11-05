@@ -1,6 +1,6 @@
 #ifndef CORTEX_H
 #define CORTEX_H
-
+ 
 #include <vector>
 #include "neuron.hpp"
 
@@ -55,6 +55,14 @@ class cortex: public neuron
 	 @param ni: number of inhibitory neurons 
 	 */
 	void createConnexions(unsigned int ne, unsigned int ni);
+	
+	/**
+	@brief : work the same as createConnexions but count the connections, allow to do not slow down my program if count isn't needed
+	@param ne : number of excitatory neurons
+	@param ni: number of inhibitory neurons 
+	@return vector<int>: the number of connections with vector[0] and with inhibitory is vector[1]
+	*/
+	std::vector<int> createCountConnexions(unsigned int ne, unsigned int ni);
 
 	//getters
 	
@@ -92,14 +100,8 @@ class cortex: public neuron
 	//destructeur
 	~cortex(); 															///destructor
 
-
-	
 	
 };
-
-
-
-
 
 #endif
 

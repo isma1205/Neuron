@@ -15,23 +15,35 @@ class neuron
 	std::vector<double> tSpike_; 			///vector that keep in memory when spikes occur
 	int clock_; 							///neuron time in step
 	double tRef_;							///refractory time of the neuron
-	const double tau_ = (20.0); 			///constant
-	const double c_= (1.0);					///constant
+	const double tau_ = (20.0); 			///constant for membtrane potential
+	const double c_= (1.0);					///constant for membtrane potential
 	double h_ = (0.1); 						///step of the simulation: usually 1 ms
-	double R_=(tau_/c_);					///constant
-	double expn_=(exp(-h_/tau_));			///constant
-	double cste_ =(R_*(1-expn_));			///constant
+	double R_=(tau_/c_);					///constant for membrane potential
+	double expn_=(exp(-h_/tau_));			///constant for membtrane potential
+	double cste_ =(R_*(1-expn_));			///constant for membtrane potential
 	const double treshold_ =(20.0); 		///level of the treshold
 	int refSteps_ = (0);					///number of iteration for the refractory state
 	std::vector<double> buffer_ ; 			///ring buffer that allows 10 slots of memory for spikes with delay
 	const double J_ = 0.1; 					///potential transmitted to other neurons [mv] when spike occurs
-	bool displaySpikes_ = true; 			///if true, allows spikes time to appear in the terminal
-	int g_ = 5;								///constant
-
+	bool displaySpikes_ = false; 			///if true, allows spikes time to appear in the terminal
+	int g_ = 5;								///constant for random backround noise
+	bool noise_ = true;						///if true the poisson distribution for backround noise is available
+	double MU_ = 10;
 	
 	public:
-	//constructor:						
-	neuron(double mPot=0.0, double Iext = 1.01, bool type = true, unsigned int spikesNb=0, int clock =0, double tRef_ = 2.0); ///constructor of neuron
+	//constructor:		
+	/**
+	 @brief : constructor of neuron
+	 @param double mPot: membrane potential
+	 @param double Iext: external current
+	 @param bool type: true if excitatory, false if inhibitory
+	 @param bool display: display spikes time and number of connections in terminal if true
+	 @param bool noise: if true activate the background noise
+	 @param unsigned int spikes Nb: the number of spikes that occured
+	 @param int clock: neuron type in step
+	 @param double tRef: refcractory time
+	*/				
+	neuron(double mPot=0.0, double Iext = 1.01, bool type = true, bool display = false, bool noise =true, unsigned int spikesNb=0, int clock =0, double tRef_ = 2.0); 
 	
 
 	//getters:
@@ -74,6 +86,7 @@ class neuron
 	
 	std::vector<double> getTspike() const;
 	
+	bool getDisplay();
 	//setters
 	
 	/**
