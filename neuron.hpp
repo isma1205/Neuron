@@ -23,12 +23,12 @@ class neuron
 	double cste_ =(R_*(1-expn_));			///constant for membtrane potential
 	const double treshold_ =(20.0); 		///level of the treshold
 	int refSteps_ = (0);					///number of iteration for the refractory state
-	std::vector<double> buffer_ ; 			///ring buffer that allows 10 slots of memory for spikes with delay
+	std::vector<double> buffer_ ; 			///ring buffer that allows 16 slots of memory for spikes with delay
 	const double J_ = 0.1; 					///potential transmitted to other neurons [mv] when spike occurs
 	bool displaySpikes_ = false; 			///if true, allows spikes time to appear in the terminal
 	int g_ = 5;								///constant for random backround noise
 	bool noise_ = true;						///if true the poisson distribution for backround noise is available
-	double MU_ = 10;
+	double MU_ = 2;
 	
 	public:
 	//constructor:		
@@ -43,7 +43,7 @@ class neuron
 	 @param int clock: neuron type in step
 	 @param double tRef: refcractory time
 	*/				
-	neuron(double mPot=0.0, double Iext = 1.01, bool type = true, bool display = false, bool noise =true, unsigned int spikesNb=0, int clock =0, double tRef_ = 2.0); 
+	neuron(double mPot=0.0, double Iext = 1.01, bool type = true, bool display = false, bool noise =true, double g =5, double mu =2, unsigned int spikesNb=0, int clock =0, double tRef_ = 2.0); 
 	
 
 	//getters:
@@ -81,12 +81,13 @@ class neuron
 	 @brief : getter for the type of neuron: true if excitatory, false if inhibitory
 	 @return : type_
 	 */ 
-	bool getType();
+	bool getType() const;
 	
 	
 	std::vector<double> getTspike() const;
 	
-	bool getDisplay();
+	bool getDisplay() const;
+	
 	//setters
 	
 	/**
@@ -129,10 +130,13 @@ class neuron
 	 */ 
 	bool update(unsigned int i);
 	
+	/**
+	@brief : will return the containt of the ine the space i of the buffer_
+	@param unsigned int i: the number of the space we are interested in
+	@return : the value of the  membrane potential the neuron will read
+	*/
+	double getBufferi(unsigned int i) const;
 	
-	
-
-
 	
 };
 

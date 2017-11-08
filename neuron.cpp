@@ -6,8 +6,8 @@
 
    
 //constructeur
-neuron::neuron(double mPot, double Iext, bool type,bool display, bool noise, unsigned int spikesNb, int clock, double tRef)
-: mPot_(mPot),Iext_(Iext), type_(type),displaySpikes_(display), noise_(noise), spikesNb_(spikesNb),  clock_(clock), tRef_(0.0), buffer_(10,0)
+neuron::neuron(double mPot, double Iext, bool type,bool display, bool noise, double g, double mu, unsigned int spikesNb, int clock, double tRef)
+: mPot_(mPot),Iext_(Iext), type_(type),displaySpikes_(display), noise_(noise), g_(g), MU_(mu), spikesNb_(spikesNb),  clock_(clock), tRef_(0.0), buffer_(16,0)
 {}
 
 
@@ -41,14 +41,19 @@ neuron::neuron(double mPot, double Iext, bool type,bool display, bool noise, uns
 	{
 		return tSpike_;
 	}
-	bool neuron::getType()
+	bool neuron::getType() const
 	{
 		return type_;
 	}
 
-	bool neuron::getDisplay()
+	bool neuron::getDisplay() const
 	{
 		return displaySpikes_;
+	}
+	
+	double neuron::getBufferi(unsigned int i) const
+	{
+		return buffer_[i];
 	}
 
 // setters
@@ -103,7 +108,7 @@ neuron::neuron(double mPot, double Iext, bool type,bool display, bool noise, uns
 			{
 				static std::random_device rdm;
 				static std::mt19937 gen(rdm());
-				static std::poisson_distribution<> externalNoise(MU_ *h_);
+				static std::poisson_distribution<> externalNoise(MU_);
 				noiseCurrent= externalNoise(gen)*J_;
 			}
 			//read buffer
@@ -114,7 +119,7 @@ neuron::neuron(double mPot, double Iext, bool type,bool display, bool noise, uns
 			}
 			else if (type_ == false)
 			{
-				mPot_ = (expn_*mPot_ + Iext_*cste_ + J*g_ + noiseCurrent); // +J*g if inhibitory	
+				mPot_ = (expn_*mPot_ + Iext_*cste_ + -J*g_ + noiseCurrent); // +J*g if inhibitory	
 			}
 		} 
 

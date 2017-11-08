@@ -92,4 +92,21 @@
 		
 	}
 
+	/*TEST(connections, received_a_spike_in_the_buffer)
+{
+	cortex c;
+	c.initiateNeurons(new neuron(0.0, 1.01 , true, false, false));
+	//will spike at 92.4ms so the 924th iteration (cause h_=0.1), -> take place in ((924+15)%16)=11th place in the buffer.
+	c.initiateNeurons(new neuron(0.0, 0.0 , true, false, false));
+	int nit (924);
+	c.updates(nit);
+	if()
+	
+	//setOneConnexions2neurons(0,1, 1); //the connection between neuron 0 and neuron 1 will be 1
+	
+
+}*/
+
+
+
 

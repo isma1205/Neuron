@@ -5,21 +5,23 @@
 #include <ctime> 
 #include <fstream>
 
-
+ 
 //constructor:
 cortex::cortex()
 {}
-
 // destructor
 cortex::~cortex()
 {
 	for (size_t i = 0; i < neurons_.size(); ++i)
 	{
 		delete neurons_[i];
-		neurons_[i] = NULL;
+		neurons_[i] = nullptr;
+
 	}
-	
+	neurons_.clear();
 }
+
+ 
 
 //getters:
 
@@ -43,6 +45,23 @@ std::vector<std::vector<double> > cortex::getConnexions()
 {
 	return connexions_;
 }
+
+std::vector<neuron*> cortex::getNeurons()
+{
+	return neurons_;
+}
+
+
+
+//setters:
+void cortex::setOneConnexions2neurons(unsigned int i, unsigned int j, double weight)
+{
+	connexions_.resize((2), std::vector<double> (2));
+	connexions_[i][j] = weight;
+} 
+	
+	
+	
 	
 // methods
 void cortex::receiveSpike(neuron n, double weight) // transmit the J to the membrane
@@ -51,11 +70,21 @@ void cortex::receiveSpike(neuron n, double weight) // transmit the J to the memb
 }
 
 
-void cortex::updates(unsigned int nit)
+void cortex::updates(unsigned int nit, bool percent)
 {
-	
+	double perc(0);
 	for (unsigned int i = 0; i < nit ; ++i)
-	{	
+	{
+			if(percent == true)
+			{
+				if((i%120)==0)
+				{	
+					double a=i;
+					double b=nit;
+					perc=((a/b)*100);
+					std::cout << '\r'<<perc << " %"<<std::flush;
+				}
+			}
 		for (unsigned int j = 0; j < neurons_.size() ; ++j)
 		{	
 			bool isThereSpike (neurons_[j]->update(i));
@@ -98,9 +127,9 @@ void cortex::createConnexions(unsigned int ne, unsigned int ni)
 		{	
 			double weight (0);
 			double chance = ((( rand()/(double)RAND_MAX ) * (1-0)) + 0) ; //used the same way as randm but the time as to be initze before the loops.
-			if (chance > 0.9) // the neurons have 10% chance to be connected, if  neuron i and j connected their connection will have a weight between 0.1 - 5.0
+			if (chance > 0.9) // the neurons have 10% chance to be connected in one way each time, if  neuron i and j connected their connection will have a weight between 0.1 - 5.0
 			{
-				weight = ((( rand()/(double)RAND_MAX ) * (5.0-0.1)) + 0);
+				weight = ((( rand()/(double)RAND_MAX ) * (5.0-1.0)) + 0); // random strength between 1 and 1 can be modifed to create another range of strength
 			}
 			connexions_[i][j]=weight;
 		}
@@ -111,7 +140,7 @@ void cortex::createConnexions(unsigned int ne, unsigned int ni)
 			double chance = ((( rand()/(double)RAND_MAX ) * (1-0)) + 0) ;
 			if (chance > 0.9) 
 			{
-				weight = ((( rand()/(double)RAND_MAX ) * (5.0-0.1)) + 0);
+				weight = ((( rand()/(double)RAND_MAX ) * (5.0-1.0)) + 0);
 			}
 			connexions_[i][k]=weight;
 		}
@@ -165,9 +194,9 @@ std::vector<int> cortex::createCountConnexions(unsigned int ne, unsigned int ni)
 }
 
 
-void cortex::storeInFile()
+void cortex::storeInFile(std::ofstream& file1)
 {
-	std::ofstream file1 ("membrane_potentials.csv");
+
 	try
 	{
 		if (file1.fail()){throw 4;}
@@ -184,7 +213,7 @@ void cortex::storeInFile()
 	}
 	catch (int four)
 	{
-		std::cout<<" faile in opening file1 containing membrane potentials " <<std::endl;
+		std::cout<<" fail in opening file1 containing membrane potentials " <<std::endl;
 	}
 	file1.close();
 }

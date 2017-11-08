@@ -14,7 +14,8 @@ class cortex: public neuron
 	const double h_= 0.1; 							/// Step of the simulation in [ms]
 	const int stepDelay_ = (D_/h_);
 	std::vector<std::vector<double> > connexions_; // boolean vector for connexions between neurons
-	
+
+
 	
 	public:
 //constructor:
@@ -32,7 +33,7 @@ class cortex: public neuron
 	 @brief : call update function of all neurons and call the function receiveSpike if the neurons j and k are connected
 	 @param nit : the number of iteration in the all simulation
 	 */
-	void updates(unsigned int nit);
+	void updates(unsigned int nit, bool percent);
 	
 	/**
 	 @brief : place the pointer on a neuron in the vector neurons_
@@ -91,11 +92,27 @@ class cortex: public neuron
 	 */ 
 	std::vector<std::vector<double> > getConnexions();
 	
+	/**
+	 @brief : return the vector of pointer on neuron neurons_
+	 @return neurons_: the vector of neurons
+	 */
 	
+	std::vector<neuron*> getNeurons();
 	/**
 	 @brief : Store in a file (named membrane potentiel) the membrane potential of all neurons.
 	 */ 
-	void storeInFile();
+	
+	//setter 
+	/**
+	 @brief : could be useful for tests, set one connection between only 2 neurons in one way, with the weight we choose
+	 @param unsigned int i: the ID of the donor neuron
+	 @param unsigned int j: the ID of the receiver neuron
+	 @param double weight: stength of the connection between i and j
+	 */ 
+	void setOneConnexions2neurons(unsigned int i, unsigned int j, double weight); 
+	 
+	// file storing
+	void storeInFile(std::ofstream& file1);
 	
 	//destructeur
 	~cortex(); 															///destructor
