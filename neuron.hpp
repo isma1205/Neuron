@@ -40,7 +40,7 @@ class neuron
 	 @param bool display: display spikes time and number of connections in terminal if true
 	 @param bool noise: if true activate the background noise
 	 @param unsigned int spikes Nb: the number of spikes that occured
-	 @param int clock: neuron type in step
+	 @param int clock: neuron time in step
 	 @param double tRef: refcractory time
 	*/				
 	neuron(double mPot=0.0, double Iext = 1.01, bool type = true, bool display = false, bool noise =true, double g =5, double mu =2, unsigned int spikesNb=0, int clock =0, double tRef_ = 2.0); 
@@ -113,7 +113,7 @@ class neuron
 	 @param int D: delay
 	 @param double weight: weight of the connection
 	 */ 
-	void setBuffer(int D, double weight);
+	void setBuffer(unsigned int i, int D, double weight);
 	
 	/**
 	 @brief : setter for the diplay option, set true if you want to diplay the spikes, set false if you don't.

@@ -64,17 +64,18 @@ void cortex::setOneConnexions2neurons(unsigned int i, unsigned int j, double wei
 	
 	
 // methods
-void cortex::receiveSpike(neuron n, double weight) // transmit the J to the membrane
+void cortex::receiveSpike(neuron* n,unsigned int i, double weight) // transmit the J to the membrane
 {
-	n.setBuffer(stepDelay_, weight);
+	n->setBuffer(i, stepDelay_, weight);
 }
 
 
 void cortex::updates(unsigned int nit, bool percent)
 {
 	double perc(0);
-	for (unsigned int i = 0; i < nit ; ++i)
+	for (unsigned int i = 0; i <= nit ; i++)
 	{
+	//display
 			if(percent == true)
 			{
 				if((i%120)==0)
@@ -85,7 +86,8 @@ void cortex::updates(unsigned int nit, bool percent)
 					std::cout << '\r'<<perc << " %"<<std::flush;
 				}
 			}
-		for (unsigned int j = 0; j < neurons_.size() ; ++j)
+		//updates:
+		for (unsigned int j = 0; j < neurons_.size() ; j++)
 		{	
 			bool isThereSpike (neurons_[j]->update(i));
 			if (isThereSpike)
@@ -95,7 +97,7 @@ void cortex::updates(unsigned int nit, bool percent)
 					if (connexions_[j][k] != 0)
 					{	
 						
-						receiveSpike(*neurons_[k], connexions_[j][k]); // transmit the J*weight to the neurone k in its buffer
+						receiveSpike(neurons_[k], i, connexions_[j][k]); // transmit the J*weight to the neurone k in its buffer
 					}
 				}
 			}

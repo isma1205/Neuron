@@ -69,11 +69,9 @@ neuron::neuron(double mPot, double Iext, bool type,bool display, bool noise, dou
 	{
 		tRef_= dt;
 	}
-	void neuron::setBuffer(int delayStep, double weight)
+	void neuron::setBuffer(unsigned int i, int delayStep, double weight)
 	{
-		buffer_[(clock_+delayStep)% buffer_.size()] +=(weight); //give the weight to te buffer
-		//debugg
-		//std::cout<<buffer_[(clock_+delayStep)% buffer_.size()] << std::endl;
+		buffer_[(i+delayStep)% buffer_.size()] +=(weight); //give the weight to te buffer
 	}
 	void neuron::setDisplaySpikes(bool b)
 	{
@@ -84,7 +82,8 @@ neuron::neuron(double mPot, double Iext, bool type,bool display, bool noise, dou
 //update
 	bool neuron::update(unsigned int i)
 	{
-		bool anySpike (false); // return if there's a spike, false initially
+		clock_ = i; // the neurone time is refresh and become the actual number of iteration 
+		bool anySpike (false); // say if there's a spike, false initially
 		
 		if(mPot_ >= treshold_) // if there is a spike ->
 		{
@@ -123,7 +122,7 @@ neuron::neuron(double mPot, double Iext, bool type,bool display, bool noise, dou
 			}
 		} 
 
-		clock_ = i; // the neurone time is refresh and become the actual number of restant iteration 
+		
 		--refSteps_; // the refractory steps decrease 
 		buffer_[i%buffer_.size()] = 0;
 		

@@ -27,7 +27,7 @@ class cortex: public neuron
 	 @param n: a neuron
 	 @param weight: the random strength of the connection
 	 */
-	void receiveSpike(neuron n, double weight);
+	void receiveSpike(neuron* n, unsigned int i, double weight);
 	
 	/**
 	 @brief : call update function of all neurons and call the function receiveSpike if the neurons j and k are connected

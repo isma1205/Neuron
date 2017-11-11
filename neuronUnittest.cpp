@@ -92,20 +92,32 @@
 		
 	}
 
-	/*TEST(connections, received_a_spike_in_the_buffer)
+	TEST(connections, received_a_spike_in_the_buffer)
 {
 	cortex c;
 	c.initiateNeurons(new neuron(0.0, 1.01 , true, false, false));
-	//will spike at 92.4ms so the 924th iteration (cause h_=0.1), -> take place in ((924+15)%16)=11th place in the buffer.
 	c.initiateNeurons(new neuron(0.0, 0.0 , true, false, false));
+	c.setOneConnexions2neurons(0,1, 1.0); //the connection between neuron 0 and neuron 1 will be 1
+	//will spike at 92.4ms so the 925th iteration (cause the first iteration is for  0ms and  h_=0.1), -> take place in ((924+15)%16)=11th place in the buffer.
 	int nit (924);
-	c.updates(nit);
-	if()
-	
-	//setOneConnexions2neurons(0,1, 1); //the connection between neuron 0 and neuron 1 will be 1
-	
-
-}*/
+	for (int i = 0; i <=nit ; i++)
+	{
+			bool isThereSpike (c.getNeuronsi(0)->update(i));
+			if (isThereSpike)
+			{	
+				for (unsigned int k = 0; k < c.getNeurons().size(); k++)
+			
+				{
+					if (c.getConnexions()[0][k] != 0)
+					{	
+						//std::cout<<j<<k<<std::endl;
+						c.receiveSpike(c.getNeuronsi(k),i, c.getConnexions()[0][k]); // transmit the J*weight to the neurone k in its buffer
+					}
+				}
+			}
+	}
+	EXPECT_EQ(1,c.getNeuronsi(1)->getBufferi(11));
+}
 
 
 
