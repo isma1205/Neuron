@@ -1,3 +1,4 @@
+
 #ifndef CORTEX_H
 #define CORTEX_H
  
@@ -7,23 +8,29 @@
 class cortex: public neuron
 {
 	private:
-	
-	std::vector<neuron*> neurons_; 					///The vector containing pointer on neurons
-	size_t neuronsNbr_; 							///< The number of neurons in the cortex
-	const double D_ = 1.5; 							/// delay in [ms]
-	const double h_= 0.1; 							/// Step of the simulation in [ms]
-	const int stepDelay_ = (D_/h_);
-	std::vector<std::vector<double> > connexions_; // boolean vector for connexions between neurons
+	/**@brief :The vector containing pointer on neurons*/
+	std::vector<neuron*> neurons_; 			
+	/**@brief :The number of neurons in the cortex*/		
+	size_t neuronsNbr_; 	
+	/**@brief :Delay in [ms]*/						
+	const double D_ = 1.5; 	
+	/**@brief :Step of the simulation in [ms]*/					
+	const double h_= 0.1; 
+	/**@brief :delay in step*/							
+	const int stepDelay_ = (D_/h_);	
+	/**@brief :double vector for connexions between neurons*/				
+	std::vector<std::vector<double> > connexions_; 
+		
 
 
 	
 	public:
 //constructor:
-	cortex();										 ///the Constructor for cortex initialized with an empty vector neurons_
+	cortex();										 /**<The Constructor for cortex initialized with an empty vector neurons_*/
 	
 // methods:
 	/**
-	 @brief : call the buffer's setter of the neuron n to add on its buffer the strength of the received current
+	 @brief : Call the buffer's setter of the neuron n to add on its buffer the strength of the received current
 	 @param n: a neuron
 	 @param weight: the random strength of the connection
 	 */
@@ -112,10 +119,14 @@ class cortex: public neuron
 	void setOneConnexions2neurons(unsigned int i, unsigned int j, double weight); 
 	 
 	// file storing
+	/**
+	 @brief : store spikes of each neurons in a file 
+	 @param std::ofstream& file1: the file to store spikes
+	 */
 	void storeInFile(std::ofstream& file1);
 	
 	//destructeur
-	~cortex(); 															///destructor
+	~cortex(); 															///<destructor
 
 	
 };

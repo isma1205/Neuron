@@ -1,3 +1,4 @@
+
 #ifndef NEURON_H
 #define NEURON_H
 #include <vector>
@@ -8,27 +9,27 @@ class neuron
 {
 	private: 
 	//atributs:
-	double mPot_;							///membrane potential
-	double Iext_;							///external current
-	bool type_ = true;						///type of the neuron: true if excitatory, false if inhibitory
-	unsigned int spikesNb_;					///number of spikes 
-	std::vector<double> tSpike_; 			///vector that keep in memory when spikes occur
-	int clock_; 							///neuron time in step
-	double tRef_;							///refractory time of the neuron
-	const double tau_ = (20.0); 			///constant for membtrane potential
-	const double c_= (1.0);					///constant for membtrane potential
-	double h_ = (0.1); 						///step of the simulation: usually 1 ms
-	double R_=(tau_/c_);					///constant for membrane potential
-	double expn_=(exp(-h_/tau_));			///constant for membtrane potential
-	double cste_ =(R_*(1-expn_));			///constant for membtrane potential
-	const double treshold_ =(20.0); 		///level of the treshold
-	int refSteps_ = (0);					///number of iteration for the refractory state
-	std::vector<double> buffer_ ; 			///ring buffer that allows 16 slots of memory for spikes with delay
-	const double J_ = 0.1; 					///potential transmitted to other neurons [mv] when spike occurs
-	bool displaySpikes_ = false; 			///if true, allows spikes time to appear in the terminal
-	int g_ = 5;								///constant for random backround noise
-	bool noise_ = true;						///if true the poisson distribution for backround noise is available
-	double MU_ = 2;
+	double mPot_;							/**<membrane potential*/
+	double Iext_;							/**<external current*/
+	bool type_ = true;						/**<type of the neuron: true if excitatory, false if inhibitory*/
+	unsigned int spikesNb_;					/**<number of spikes */
+	std::vector<double> tSpike_; 			/**<vector that keep in memory when spikes occur*/
+	int clock_; 							/**<neuron time in step*/
+	double tRef_;							/**<refractory time of the neuron*/
+	const double tau_ = (20.0); 			/**<constant for membtrane potential*/
+	const double c_= (1.0);					/**<constant for membtrane potential*/
+	double h_ = (0.1); 						/**<step of the simulation: usually 1 ms*/
+	double R_=(tau_/c_);					/**<constant for membrane potential*/
+	double expn_=(exp(-h_/tau_));			/**<constant for membtrane potential*/
+	double cste_ =(R_*(1-expn_));			/**<constant for membtrane potential*/
+	const double treshold_ =(20.0); 		/**<level of the treshold*/
+	int refSteps_ = (0);					/**<number of iteration for the refractory state*/
+	std::vector<double> buffer_ ; 			/**<ring buffer that allows 16 slots of memory for spikes with delay*/
+	const double J_ = 0.1; 					/**<potential transmitted to other neurons [mv] when spike occurs*/
+	bool displaySpikes_ = false; 			/**<if true, allows spikes time to appear in the terminal*/
+	int g_ = 5;								/**<constant for random backround noise*/
+	bool noise_ = true;						/**<if true the poisson distribution for backround noise is available*/
+	double MU_ = 2;							/**<constant for poisson ditribution*/
 	
 	public:
 	//constructor:		
